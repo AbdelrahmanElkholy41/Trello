@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../ProjectDetails/ProjectDetails.dart';
+
 class HomepageBody extends StatelessWidget {
   const HomepageBody({super.key});
 
@@ -17,6 +19,9 @@ class HomepageBody extends StatelessWidget {
           ),
           SizedBox(height: 30,),
           GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProjectDetails()));
+            },
             child: Card(
               child: Column(
                 crossAxisAlignment:CrossAxisAlignment.start,
