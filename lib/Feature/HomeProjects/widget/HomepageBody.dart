@@ -12,29 +12,36 @@ class HomepageBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 20,),
+          SizedBox(height: 20),
           Text(
             'Abdelrahman',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 30),
           GestureDetector(
-            onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProjectDetails()));
+            onTap: () {
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => ProjectDetails()));
             },
             child: Card(
               child: Column(
-                crossAxisAlignment:CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                      title:Text("Project A",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20),),
+                    title: Text(
+                      "Project A",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
                     subtitle: Text('3 Tasks | 3 Member'),
-                ),
-            
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
