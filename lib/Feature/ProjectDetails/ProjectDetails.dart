@@ -7,6 +7,12 @@ class ProjectDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50)
+        ),
+        onPressed:(){},child: Icon(Icons.add,color: Colors.white,),),
       appBar: AppBar(
 
       ),

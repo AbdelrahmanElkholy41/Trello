@@ -14,7 +14,7 @@ class Homepage extends StatelessWidget {
             borderRadius: BorderRadius.circular(50)
         ),
 
-        child: Icon(Icons.add, color: Colors.white,size: 35,),
+        child: Icon(Icons.add, color: Colors.white,),
 
       ),
       appBar: AppBar(title: Text('Home', style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700))),
