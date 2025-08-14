@@ -21,7 +21,6 @@ class ProjectDetailsBody extends StatelessWidget {
           ),
           const SizedBox(height: 15),
 
-          // 🧑‍🤝‍🧑 أعضاء الفريق
           Row(
             children: [
               const UserAvatar(userName: 'Abdelrahman Elk holy'),
