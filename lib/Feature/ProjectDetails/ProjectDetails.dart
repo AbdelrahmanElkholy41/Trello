@@ -39,14 +39,20 @@ class ProjectDetails extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 3,
-        itemBuilder: (BuildContext context, int index) {
-          return SizedBox(
-              height: 300,
-              child: const TrelloList(title: 'dsh'));
-        },
+      body: Row(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 3,
+              itemBuilder: (BuildContext context, int index) {
+                return const TrelloList(title: 'dsh');
+              },
+            ),
+          ),
+
+
+        ],
       ),
     );
   }
