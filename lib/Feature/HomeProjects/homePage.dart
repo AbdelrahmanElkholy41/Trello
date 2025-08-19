@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trello/Feature/HomeProjects/widget/HomepageBody.dart';
 
+import '../add_boarder/add_boarder_screen.dart';
+
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
@@ -8,7 +10,9 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddBoarderScreen()));
+        },
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50)
