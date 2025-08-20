@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/helpers/spacing.dart';
+
 class UserAvatar extends StatelessWidget {
   final String userName;
   final double radius;
@@ -7,7 +9,7 @@ class UserAvatar extends StatelessWidget {
   const UserAvatar({
     Key? key,
     required this.userName,
-    this.radius = 24,
+    this.radius = 32,
   }) : super(key: key);
 
   /// 🔡 Get initials from full name (e.g. "Ahmed Khaled" → "AK")
@@ -39,6 +41,7 @@ class UserAvatar extends StatelessWidget {
           fontSize: radius * 0.6,
         ),
       ),
+
     );
   }
 }
