@@ -1,28 +1,38 @@
-# 📋 Trello Clone App (Flutter + Supabase)
+# 📝 Flutter Trello Clone
 
-A simple **Trello-like task management app** built with Flutter.  
-This project allows users to create boards, add members, and manage tasks with a clean UI.
+A Flutter application inspired by **Trello**, built for practicing project management features like boards, lists, cards, and members.  
 
 ---
 
 ## 🚀 Features
 
-- 👤 User management (Admin / Seller roles).  
-- 📦 Add, edit, and manage products.  
-- 💰 Record sales and calculate profits.  
-- 📑 Export sales history as PDF (supports Arabic text).  
-- 📝 Task boards with draggable cards (like Trello).  
-- 🎨 Responsive UI with `flutter_screenutil`.  
+- 📋 **Boards**
+  - Create and manage multiple boards.
+  
+- 🗂️ **Lists**
+  - Each board contains multiple lists.
+  - Add / remove tasks (cards) to lists.
+
+- 🃏 **Cards**
+  - Add cards with task details.
+  - Edit / delete cards.
+
+- 👥 **Members**
+  - Display members with scrollable avatars.
+  - Add new members easily.
+
+- 🎨 **UI**
+  - Responsive design using `flutter_screenutil`.
+  - Custom theming (colors, text styles).
+  - Smooth scrollable experience for lists & members.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Flutter** (Dart)  
-- **Supabase** (Backend & Auth)  
-- **Bloc / Cubit** (State Management)  
-- **PDF Export** (with Arabic support)  
-- **Kotlin DSL** (Android Gradle)  
+- **Flutter** (Dart)
+- **Bloc / Cubit** for state management
+- **flutter_screenutil** for responsive design
 
 ---
 
