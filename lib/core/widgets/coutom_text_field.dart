@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final Color? backgroundColor;
   final TextEditingController? controller;
   final Function(String?) validator;
+  final TextStyle? textStyle;
   const CustomTextField({
     super.key,
     this.contentPadding,
@@ -28,7 +29,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.backgroundColor,
     this.controller,
-    required this.validator,
+    required this.validator, this.textStyle,
   });
 
   @override
@@ -76,7 +77,7 @@ class CustomTextField extends StatelessWidget {
         filled: true,
       ),
       obscureText: isObscureText ?? false,
-      style: TextStyles.font14DarkBlueMedium,
+      style: textStyle ?? TextStyles.font14DarkBlueMedium,
       validator: (value) {
         return validator(value);
       },
