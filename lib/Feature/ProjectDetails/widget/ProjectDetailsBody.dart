@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../core/helpers/spacing.dart';
 
 class TrelloList extends StatefulWidget {
   final String title;
@@ -20,11 +23,11 @@ class _TrelloListState extends State<TrelloList> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
       children: [
         Container(
-          width: 300,
+          width: 300.w,
+
           margin: const EdgeInsets.all(8),
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
@@ -36,42 +39,34 @@ class _TrelloListState extends State<TrelloList> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // العنوان
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(widget.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    const Icon(Icons.more_horiz, color: Colors.white70),
-                  ],
-                ),
-                const SizedBox(height: 12),
-
-
-                Flexible(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-
-                    itemCount: cards.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade800,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(cards[index],
-                            style: const TextStyle(color: Colors.white)),
-                      );
-                    },
+                Text(
+                  widget.title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                verticalSpace(8.h),
+                ListView.builder(
+                  shrinkWrap: true,
 
-
+                  itemCount: cards.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade800,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        cards[index],
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    );
+                  },
+                ),
                 InkWell(
                   onTap: addCard,
                   child: Padding(
@@ -80,19 +75,19 @@ class _TrelloListState extends State<TrelloList> {
                       children: const [
                         Icon(Icons.add, color: Colors.white70, size: 20),
                         SizedBox(width: 8),
-                        Text("Add a card", style: TextStyle(color: Colors.white70)),
-
+                        Text(
+                          "Add a card",
+                          style: TextStyle(color: Colors.white70),
+                        ),
                       ],
                     ),
                   ),
                 ),
-               ],
-
+              ],
             ),
           ),
         ),
-
       ],
     );
   }
-  }
+}

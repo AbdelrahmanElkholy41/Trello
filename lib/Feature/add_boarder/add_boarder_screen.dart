@@ -9,7 +9,6 @@ import '../../core/widgets/custom_main_button.dart';
 
 class AddBoarderScreen extends StatelessWidget {
   const AddBoarderScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

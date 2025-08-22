@@ -16,7 +16,7 @@ class BoardCubit extends Cubit<BoardState> {
 
       print("Response: $response");
 
-      if (response == null || response.isEmpty) {
+      if (response.isEmpty) {
         emit(BoardSuccess([])); // مفيش Boards
         return;
       }
@@ -32,5 +32,4 @@ class BoardCubit extends Cubit<BoardState> {
       emit(BoardError(e.toString()));
     }
   }
-
 }

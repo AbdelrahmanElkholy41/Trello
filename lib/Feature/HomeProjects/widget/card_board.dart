@@ -7,9 +7,7 @@ class card_board extends StatelessWidget {
     super.key,
     required this.boards,
   });
-
   final String boards;
-
   @override
   Widget build(BuildContext context) {
     return Padding(

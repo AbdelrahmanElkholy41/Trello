@@ -23,7 +23,6 @@ class Board {
     );
   }
 
-
   Map<String, dynamic> toJson() {
     return {
       'id': id,

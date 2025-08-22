@@ -20,9 +20,7 @@ class Homepage extends StatelessWidget {
           );
         },
         backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         child: const Icon(Icons.add, color: Colors.white),
       ),
       appBar: AppBar(
@@ -36,7 +34,7 @@ class Homepage extends StatelessWidget {
           if (state is BoardLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is BoardSuccess) {
-           //context.read<BoardCubit>().getBoards();
+            //context.read<BoardCubit>().getBoards();
             return HomepageBody(boards: state.boards);
           } else if (state is BoardError) {
             return Center(child: Text("Error: ${state.message}"));

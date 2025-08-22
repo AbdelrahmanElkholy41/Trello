@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trello/Feature/HomeProjects/data/board_modal.dart';
-
 import '../../ProjectDetails/ProjectDetails.dart';
 import '../logic/board_cubit.dart';
 import '../logic/board_state.dart';
@@ -17,12 +16,12 @@ class HomepageBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           const Text(
             'Abdelrahman',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
           Expanded(
             child: ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
