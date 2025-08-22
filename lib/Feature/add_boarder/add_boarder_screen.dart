@@ -25,6 +25,7 @@ class AddBoarderScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: CustomTextField(
+              textStyle: TextStyles.font18WhiteMedium,
               hintText: 'Enter Board Name',
               validator: (value) {
                 if (value!.isEmpty) {

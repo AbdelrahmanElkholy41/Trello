@@ -14,13 +14,13 @@ class InvitePersoneScreen extends StatelessWidget {
   Widget build(BuildContext context)  {
     return Scaffold(
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 40),
+        padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 50),
         child: AppTextButton(buttonText: 'Invite', textStyle: TextStyles.font14DarkBlueBold, onPressed: (){}),
       ) ,
       appBar: AppBar(),
       body: Column(
         children: [
-          verticalSpace(20.h),
+          verticalSpace(50.h),
           CustomTextField(
             hintText: 'Enter Email',
             validator: (value) {},

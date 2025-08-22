@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trello/Feature/HomeProjects/widget/HomepageBody.dart';
 
 import '../add_boarder/add_boarder_screen.dart';
+import 'logic/board_cubit.dart';
+import 'logic/board_state.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
@@ -11,20 +15,35 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddBoarderScreen()));
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const AddBoarderScreen()),
+          );
         },
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50)
+          borderRadius: BorderRadius.circular(50),
         ),
-
-        child: Icon(Icons.add, color: Colors.white,),
-
+        child: const Icon(Icons.add, color: Colors.white),
       ),
-      appBar: AppBar(title: Text('Home', style: TextStyle(fontSize: 22,fontWeight: FontWeight.w700))),
-      body: HomepageBody(),
+      appBar: AppBar(
+        title: const Text(
+          'Home',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+        ),
+      ),
+      body: BlocBuilder<BoardCubit, BoardState>(
+        builder: (context, state) {
+          if (state is BoardLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is BoardSuccess) {
+           //context.read<BoardCubit>().getBoards();
+            return HomepageBody(boards: state.boards);
+          } else if (state is BoardError) {
+            return Center(child: Text("Error: ${state.message}"));
+          }
+          return const Center(child: Text("No Boards Yet"));
+        },
+      ),
     );
   }
 }
-
-

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trello/Feature/HomeProjects/homePage.dart';
+
+import 'Feature/HomeProjects/logic/board_cubit.dart'; // استورد Cubit
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,9 +14,19 @@ void main() async {
     anonKey:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imltc255Z3ByaHRqaWNzd2pxaHZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxNjc4MTIsImV4cCI6MjA3MDc0MzgxMn0.71itxd88DHE2Bu1jFuFlkEn3RPTQSgGh8GCLJobP_KE',
   );
-  print('Sup abase initialized successfully');
 
-  runApp(const MyApp());
+  print('Supabase initialized successfully');
+
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => BoardCubit()..getBoards() // cubit بتاعك
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -32,7 +45,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: Homepage(),
+      child: const Homepage(),
     );
   }
 }
