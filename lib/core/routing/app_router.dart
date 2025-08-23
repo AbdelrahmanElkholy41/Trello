@@ -5,6 +5,7 @@ import 'package:trello/Feature/add_boarder/add_boarder_screen.dart';
 import 'package:trello/Feature/meanu/meanu_screen.dart';
 import 'package:trello/core/routing/routes.dart';
 
+import '../../Feature/Auth/login_screen.dart';
 import '../../Feature/HomeProjects/homePage.dart';
 import '../../Feature/HomeProjects/logic/board_cubit.dart';
 import '../../Feature/add_boarder/logic/add_poard_cubit.dart';
@@ -23,12 +24,10 @@ class AppRouter {
           ),
         );
 
-      // case Routes.loginScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => BlocProvider(
-      //         create: (context) => getIt<LoginCubit>(),
-      //         child: const LoginScreen()),
-      //   );
+      case Routes.loginScreen:
+        return MaterialPageRoute(
+          builder: (_) => const LoginScreen(),
+        );
       case Routes.addBoarderScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

@@ -1,0 +1,43 @@
+import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:meta/meta.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+part 'login_state.dart';
+
+class LoginCubit extends Cubit<LoginState> {
+  LoginCubit() : super(LoginInitial());
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+  final supabase = Supabase.instance.client;
+
+  Future<void> login() async {
+    emit(LoginLoading());
+    try {
+      final response = await supabase.auth.signInWithPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      final user = response.user;
+      if (user != null) {
+        emit(LoginSuccess(user.id));
+      } else {
+        emit(LoginFailure("فشل تسجيل الدخول. تأكد من البيانات."));
+      }
+    } on AuthException catch (e) {
+      emit(LoginFailure("خطأ في تسجيل الدخول: ${e.message}"));
+    } catch (e) {
+      emit(LoginFailure("Unexpected error: $e"));
+    }
+  }
+
+
+  Future<void> logout() async {
+    try {
+      await supabase.auth.signOut();
+      emit(LoginInitial());
+    } catch (e) {
+      emit(LoginFailure("فشل تسجيل الخروج: $e"));
+    }
+  }
+}

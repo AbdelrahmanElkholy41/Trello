@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trello/Feature/Auth/login_screen.dart';
 import 'package:trello/Feature/HomeProjects/homePage.dart';
 
 import 'Feature/HomeProjects/logic/board_cubit.dart';
@@ -36,13 +37,13 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           onGenerateRoute: AppRouter().generateRoute,
-          initialRoute: Routes.homeScreen,
+          initialRoute: Routes.loginScreen,
           theme: ThemeData.dark(),
           debugShowCheckedModeBanner: false,
 
         );
       },
-      child: const Homepage(),
+     // child: const LoginScreen(),
     );
   }
 }
