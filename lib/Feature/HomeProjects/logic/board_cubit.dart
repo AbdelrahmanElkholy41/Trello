@@ -12,7 +12,17 @@ class BoardCubit extends Cubit<BoardState> {
   Future<void> getBoards() async {
     emit(BoardLoading());
     try {
-      final response = await supabase.from('boards').select();
+      final currentUser = supabase.auth.currentUser;
+
+      if (currentUser == null) {
+        emit(BoardError("مفيش مستخدم مسجل دخول"));
+        return;
+      }
+
+      final response = await supabase
+          .from('boards')
+          .select()
+          .eq('created_by', currentUser.id);
 
       print("Response: $response");
 
@@ -32,4 +42,5 @@ class BoardCubit extends Cubit<BoardState> {
       emit(BoardError(e.toString()));
     }
   }
+
 }

@@ -17,22 +17,31 @@ class AddPoardCubit extends Cubit<AddPoardState> {
     try {
       emit(AddPoardLoading());
 
+      final currentUser = supabase.auth.currentUser;
+
+      if (currentUser == null) {
+        emit(AddPoardFailure('do not have user'));
+        return;
+      }
+
       final response = await supabase.from('boards').insert({
-        'name': titleController.text, // أخدنا القيمة من الكنترولر
+        'name': titleController.text, // من الكنترولر
         'created_at': DateTime.now().toIso8601String(),
+        'created_by': currentUser.id, // 👈 هنا الإضافة المهمة
       }).select();
 
       if (response.isEmpty) {
         emit(AddPoardFailure("فشل إضافة البورد"));
       } else {
         emit(AddPoardSuccess("تم إضافة البورد: ${titleController.text}"));
-        print(response);
-        titleController.clear(); // نفرغ بعد الإضافة
+        print("Board Added: $response");
+        titleController.clear();
       }
     } catch (e) {
       emit(AddPoardFailure("خطأ: $e"));
     }
   }
+
 
   @override
   Future<void> close() {
