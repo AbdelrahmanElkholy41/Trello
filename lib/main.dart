@@ -4,7 +4,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trello/Feature/HomeProjects/homePage.dart';
 
-import 'Feature/HomeProjects/logic/board_cubit.dart'; // استورد Cubit
+import 'Feature/HomeProjects/logic/board_cubit.dart';
+import 'core/routing/app_router.dart';
+import 'core/routing/routes.dart'; // استورد Cubit
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,14 +20,7 @@ void main() async {
   print('Supabase initialized successfully');
 
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => BoardCubit()..getBoards(), // cubit بتاعك
-        ),
-      ],
-      child: const MyApp(),
-    ),
+    const MyApp(),
   );
 }
 
@@ -40,9 +35,11 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+          onGenerateRoute: AppRouter().generateRoute,
+          initialRoute: Routes.homeScreen,
           theme: ThemeData.dark(),
           debugShowCheckedModeBanner: false,
-          home: child,
+
         );
       },
       child: const Homepage(),

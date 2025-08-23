@@ -7,6 +7,7 @@ import 'package:trello/core/routing/routes.dart';
 
 import '../../Feature/HomeProjects/homePage.dart';
 import '../../Feature/HomeProjects/logic/board_cubit.dart';
+import '../../Feature/add_boarder/logic/add_poard_cubit.dart';
 
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
@@ -16,36 +17,33 @@ class AppRouter {
     switch (settings.name) {
       case Routes.homeScreen:
         return MaterialPageRoute(
-          builder: (_) =>
-              BlocProvider(
-                create: (context) => BoardCubit()..getBoards(),
-                child: const Homepage()),
-              );
+          builder: (_) => BlocProvider(
+            create: (context) => BoardCubit()..getBoards(),
+            child: const Homepage(),
+          ),
+        );
 
-    // case Routes.loginScreen:
-    //   return MaterialPageRoute(
-    //     builder: (_) => BlocProvider(
-    //         create: (context) => getIt<LoginCubit>(),
-    //         child: const LoginScreen()),
-    //   );
+      // case Routes.loginScreen:
+      //   return MaterialPageRoute(
+      //     builder: (_) => BlocProvider(
+      //         create: (context) => getIt<LoginCubit>(),
+      //         child: const LoginScreen()),
+      //   );
       case Routes.addBoarderScreen:
         return MaterialPageRoute(
-          builder: (_) => const AddBoarderScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) => AddPoardCubit(),
+            child: const AddBoarderScreen(),
+          ),
         );
       case Routes.signUpScreen:
         return MaterialPageRoute(builder: (_) => const MeanuScreen());
-
-
       default:
         return MaterialPageRoute(
-          builder: (_) =>
-              Scaffold(
-                body: Center(
-                  child: Text('No route defined for ${settings.name}'),
-                ),
-              ),
+          builder: (_) => Scaffold(
+            body: Center(child: Text('No route defined for ${settings.name}')),
+          ),
         );
     }
   }
 }
-

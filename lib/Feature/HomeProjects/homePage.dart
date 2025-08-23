@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trello/Feature/HomeProjects/widget/HomepageBody.dart';
+import 'package:trello/core/helpers/extensions.dart';
 
+import '../../core/routing/routes.dart';
 import '../add_boarder/add_boarder_screen.dart';
 import 'logic/board_cubit.dart';
 import 'logic/board_state.dart';
@@ -15,9 +17,7 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const AddBoarderScreen()),
-          );
+         context.pushNamed(Routes.addBoarderScreen);
         },
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
