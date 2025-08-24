@@ -23,33 +23,30 @@ class AddBoarderScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
-              Navigator.pop(context);
-
-            }
-            else if (state is AddPoardFailure) {
+              Navigator.pop(context, true); // ✅ هرجع بـ true
+            } else if (state is AddPoardFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),
               );
-            }
-            else if (state is AddPoardLoading) {
+            } else if (state is AddPoardLoading) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Loading')),
+                const SnackBar(content: Text('Loading...')),
               );
             }
           },
           builder: (context, state) {
             final cubit = context.read<AddPoardCubit>();
-            return AppTextButton(buttonText: 'Create Board',
+            return AppTextButton(
+              buttonText: 'Create Board',
               textStyle: TextStyles.font18DarkBlueBold,
               onPressed: () {
-              cubit.addBoard();
+                cubit.addBoard();
               },
-
             );
           },
         ),
       ),
-      appBar: AppBar(title: Text('Create Boarder')),
+      appBar: AppBar(title: const Text('Create Board')),
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -57,18 +54,18 @@ class AddBoarderScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: CustomTextField(
-                textStyle: TextStyles.font18WhiteMedium,
-                hintText: 'Enter Board Name',
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please Enter Board Name';
-                  }
-                },
-                controller: context.read<AddPoardCubit>().titleController,
-                backgroundColor: ColorsManager.trelloColor
+              textStyle: TextStyles.font18WhiteMedium,
+              hintText: 'Enter Board Name',
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please Enter Board Name';
+                }
+                return null;
+              },
+              controller: context.read<AddPoardCubit>().titleController,
+              backgroundColor: ColorsManager.trelloColor,
             ),
           ),
-
         ],
       ),
     );

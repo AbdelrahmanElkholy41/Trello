@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../HomeProjects/logic/board_cubit.dart';
+
 part 'add_poard_state.dart';
 
 class AddPoardCubit extends Cubit<AddPoardState> {

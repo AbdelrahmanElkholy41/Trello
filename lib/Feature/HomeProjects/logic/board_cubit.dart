@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../data/board_modal.dart';
 import 'board_state.dart';
 
