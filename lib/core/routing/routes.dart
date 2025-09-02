@@ -6,5 +6,6 @@ class Routes {
   static const String addBoarderScreen = '/addBoarderScreen';
   static const String meanuScreen = '/meanuScreen';
   static const String invitePersoneScreen = '/invitePersoneScreen';
+  static const String projectDetailsScreen = '/projectDetailsScreen';
 
 }

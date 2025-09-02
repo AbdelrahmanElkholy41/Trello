@@ -27,7 +27,7 @@ class HomepageBody extends StatelessWidget {
               physics: const AlwaysScrollableScrollPhysics(),
               itemCount: boards.length,
               itemBuilder: (BuildContext context, int index) {
-                return card_board(boards: boards[index].name);
+                return card_board(boards: boards[index]);
 
               },
             ),
