@@ -5,6 +5,7 @@ import 'package:trello/Feature/ProjectDetails/widget/ProjectDetailsBody.dart';
 
 import '../HomeProjects/data/board_modal.dart';
 import '../meanu/meanu_screen.dart';
+import 'logic/card_cubit.dart';
 import 'logic/list_cubit.dart';
 import 'logic/list_state.dart';
 
@@ -47,7 +48,8 @@ class _ProjectDetailsState extends State<ProjectDetails> {
             appBar: AppBar(
               title: Text(
                 widget.boardId.name,
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                    fontSize: 22, fontWeight: FontWeight.w700),
               ),
               actions: [
                 IconButton(
@@ -83,9 +85,14 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                     itemCount: lists.length,
                     itemBuilder: (BuildContext context, int index) {
                       final list = lists[index];
+
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: TrelloList(title: list.title),
+                        child: BlocProvider(
+                          create: (context) => CardCubit(),
+                          child: TrelloList(
+                            title: list.title, listModel: list,),
+                        ),
                       );
                     },
                   ),
