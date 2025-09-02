@@ -54,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 verticalSpace(40.h),
                 CustomTextField(
-                  textStyle: TextStyles.font18WhiteMedium,
+                  textStyle: TextStyles.font16WhiteMedium,
                   controller: context.read<LoginCubit>().passwordController,
                   hintText: 'Password',
                   validator: (value) {},
@@ -82,7 +82,9 @@ class LoginScreen extends StatelessWidget {
                             decoration: TextDecoration
                                 .underline, // خط تحتها يبين انها لينك
                           ),
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()..onTap = () {
+                            context.pushNamed(Routes.signUpScreen);
+                          },
                         ),
                       ],
                     ),
