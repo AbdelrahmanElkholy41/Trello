@@ -12,11 +12,8 @@ import '../logic/card_state.dart';
 
 class TrelloList extends StatefulWidget {
   final String title;
-
   const TrelloList({super.key, required this.title, required this.listModel});
-
   final ListModel listModel;
-
   @override
   State<TrelloList> createState() => _TrelloListState();
 }
@@ -34,11 +31,9 @@ class _TrelloListState extends State<TrelloList> {
       _cardController.clear(); // فضي الفيلد بعد الإضافة
     }
   }
-
   @override
   void initState() {
     super.initState();
-
     context.read<CardCubit>().getCards(widget.listModel.id);
   }
 
@@ -97,11 +92,9 @@ class _TrelloListState extends State<TrelloList> {
                               child: Text(
                                 card.title,
                                 style: const TextStyle(color: Colors.white),
-                              )
+                              ),
                             ),
                           );
-
-
                         },
                       ),
                     Row(
@@ -109,7 +102,7 @@ class _TrelloListState extends State<TrelloList> {
                         Icon(Icons.add, color: Colors.white, size: 20),
                         Expanded(
                           child: CustomTextField(
-                            onSubmited: (_)=> addCard(),
+                            onSubmited: (_) => addCard(),
                             hintText: 'Add a card..',
                             validator: (value) {},
                             backgroundColor: ColorsManager.trelloColor,
@@ -129,14 +122,12 @@ class _TrelloListState extends State<TrelloList> {
                               borderRadius: BorderRadius.circular(16.0),
                             ),
                             textStyle: TextStyles.font16WhiteMedium.copyWith(
-                              fontWeight: FontWeight.w400
-                            )
-
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ],
                     ),
-
                   ],
                 ),
               ),
