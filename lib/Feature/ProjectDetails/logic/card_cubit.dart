@@ -15,8 +15,8 @@ class CardCubit extends Cubit<CardState> {
       final response = await supabase
           .from('cards')
           .select()
-          .eq('list_id', listId)
-          .order('position', ascending: true);
+          .eq('list_id', listId);
+
 
       final cards = (response as List)
           .map((e) => CardModel.fromJson(e as Map<String, dynamic>))
@@ -32,23 +32,16 @@ class CardCubit extends Cubit<CardState> {
   Future<void> addCard({
     required int listId,
     required String title,
-    required String description,
-    required String assignedTo,
-    required String status,
-    required int position,
   }) async {
     try {
       await supabase.from('cards').insert({
         'list_id': listId,
         'title': title,
-        'description': description,
-        'assigned_to': assignedTo,
-        'status': status,
-        'position': position,
-        'updated_at': DateTime.now().toIso8601String(),
       });
 
+
       /// refresh cards
+      print('refresh cards');
       getCards(listId);
     } catch (e) {
       emit(CardError(e.toString()));
@@ -56,22 +49,7 @@ class CardCubit extends Cubit<CardState> {
   }
 
   /// update card
-  Future<void> updateCard(CardModel card) async {
-    try {
-      await supabase.from('cards').update({
-        'title': card.title,
-        'description': card.description,
-        'assigned_to': card.assignedTo,
-        'status': card.status,
-        'position': card.position,
-        'updated_at': DateTime.now().toIso8601String(),
-      }).eq('id', card.id);
 
-      getCards(card.listId);
-    } catch (e) {
-      emit(CardError(e.toString()));
-    }
-  }
 
   /// delete card
   Future<void> deleteCard(int cardId, int listId) async {

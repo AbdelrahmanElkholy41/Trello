@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final Color? backgroundColor;
   final TextEditingController? controller;
   final Function(String?) validator;
+  final Function(String?)? onSubmited;
   final TextStyle? textStyle;
   const CustomTextField({
     super.key,
@@ -29,6 +30,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.backgroundColor,
     this.controller,
+  this.onSubmited,
     required this.validator, this.textStyle,
   });
 
@@ -81,6 +83,7 @@ class CustomTextField extends StatelessWidget {
       validator: (value) {
         return validator(value);
       },
+      onFieldSubmitted: onSubmited,
     );
   }
 }

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trello/Feature/ProjectDetails/data/list_modal.dart';
+import 'package:trello/core/theming/colors.dart';
+import 'package:trello/core/widgets/coutom_text_field.dart';
 
 import '../../../core/helpers/spacing.dart';
+import '../../../core/theming/styles.dart';
 import '../logic/card_cubit.dart';
 import '../logic/card_state.dart';
 
@@ -19,17 +22,23 @@ class TrelloList extends StatefulWidget {
 }
 
 class _TrelloListState extends State<TrelloList> {
-  List<String> cards = ["Task 1", "Task 2"];
+  final TextEditingController _cardController = TextEditingController();
 
   void addCard() {
-    setState(() {
-      cards.add("New Card ${cards.length + 1}");
-    });
+    final title = _cardController.text.trim();
+    if (title.isNotEmpty) {
+      context.read<CardCubit>().addCard(
+        listId: widget.listModel.id,
+        title: title,
+      );
+      _cardController.clear(); // فضي الفيلد بعد الإضافة
+    }
   }
 
   @override
   void initState() {
     super.initState();
+
     context.read<CardCubit>().getCards(widget.listModel.id);
   }
 
@@ -38,9 +47,9 @@ class _TrelloListState extends State<TrelloList> {
     return BlocConsumer<CardCubit, CardState>(
       listener: (context, state) {
         if (state is CardError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       builder: (context, state) {
@@ -68,44 +77,66 @@ class _TrelloListState extends State<TrelloList> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    verticalSpace(8.h),
-                    if(state is CardLoaded)
-                    ListView.builder(
-                      shrinkWrap: true,
+                    verticalSpace(10.h),
+                    if (state is CardLoaded)
+                      ListView.builder(
+                        shrinkWrap: true,
 
-                      itemCount: state.cards.length,
-                      itemBuilder: (context, index) {
-                        final card = state.cards[index];
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade800,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            card.title,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                        );
-                      },
-                    ),
-                    InkWell(
-                      onTap: addCard,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: Row(
-                          children: const [
-                            Icon(Icons.add, color: Colors.white70, size: 20),
-                            SizedBox(width: 8),
-                            Text(
-                              "Add a card",
-                              style: TextStyle(color: Colors.white70),
+                        itemCount: state.cards.length,
+                        itemBuilder: (context, index) {
+                          final card = state.cards[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 8),
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade800,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                card.title,
+                                style: const TextStyle(color: Colors.white),
+                              )
                             ),
-                          ],
-                        ),
+                          );
+
+
+                        },
                       ),
+                    Row(
+                      children: [
+                        Icon(Icons.add, color: Colors.white, size: 20),
+                        Expanded(
+                          child: CustomTextField(
+                            onSubmited: (_)=> addCard(),
+                            hintText: 'Add a card..',
+                            validator: (value) {},
+                            backgroundColor: ColorsManager.trelloColor,
+                            controller: _cardController,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: ColorsManager.trelloColor,
+                                width: 1.3,
+                              ),
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: ColorsManager.trelloColor,
+                                width: 1.3,
+                              ),
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            textStyle: TextStyles.font16WhiteMedium.copyWith(
+                              fontWeight: FontWeight.w400
+                            )
+
+                          ),
+                        ),
+                      ],
                     ),
+
                   ],
                 ),
               ),
