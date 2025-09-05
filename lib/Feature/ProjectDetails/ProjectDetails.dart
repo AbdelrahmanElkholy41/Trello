@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trello/Feature/ProjectDetails/widget/ProjectDetailsBody.dart';
+import 'package:trello/Feature/ProjectDetails/widget/custom_app_bar.dart';
+import 'package:trello/core/theming/colors.dart';
 
 import '../../core/theming/styles.dart';
 import '../../core/widgets/custom_main_button.dart';
@@ -13,9 +14,7 @@ import 'logic/list_state.dart';
 
 class ProjectDetails extends StatefulWidget {
   final Board boardId;
-
   const ProjectDetails({super.key, required this.boardId});
-
   @override
   State<ProjectDetails> createState() => _ProjectDetailsState();
 }
@@ -41,67 +40,66 @@ class _ProjectDetailsState extends State<ProjectDetails> {
       },
       builder: (context, state) {
         if (state is ListLoading) {
-          return Scaffold(
-
-            body: const Center(child: CircularProgressIndicator()),
+          return const Center(child: CircularProgressIndicator(),
           );
         } else if (state is ListLoaded) {
           final lists = state.lists;
           return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                widget.boardId.name,
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.more_vert, size: 28),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        transitionDuration: const Duration(milliseconds: 400),
-                        pageBuilder: (_, __, ___) => const MeanuScreen(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                              final tween = Tween(
-                                begin: const Offset(0, 1),
-                                end: Offset.zero,
-                              ).chain(CurveTween(curve: Curves.easeInOut));
-                              return SlideTransition(
-                                position: animation.drive(tween),
-                                child: child,
-                              );
-                            },
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-            body: Row(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: lists.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final list = lists[index];
+            appBar: CustomAppBar(boardId: widget.boardId,),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: lists.length + 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index < lists.length) {
+                          final list = lists[index];
+                          return BlocProvider(
+                            create: (context) => CardCubit(),
+                            child: TrelloList(title: list.title, listModel: list),
+                          );
+                        } else {
+                          // ✅ آخر عنصر: زرار Add List
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
 
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: BlocProvider(
-                          create: (context) => CardCubit(),
-                          child: TrelloList(title: list.title, listModel: list),
-                        ),
-                      );
-                    },
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: ColorsManager.trelloColor,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.add, color: Colors.white),
+                                        SizedBox(width: 8),
+                                        Text("Add another list",
+                                            style: TextStyle(color: Colors.white, fontSize: 16)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   )
-                ),
-              ],
+
+
+                ],
+              ),
             ),
           );
         } else {

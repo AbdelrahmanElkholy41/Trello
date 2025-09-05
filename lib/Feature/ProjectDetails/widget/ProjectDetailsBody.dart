@@ -30,7 +30,7 @@ class _TrelloListState extends State<TrelloList> {
         listId: widget.listModel.id,
         title: title,
       );
-      _cardController.clear(); // فضي الفيلد بعد الإضافة
+      _cardController.clear();
     }
   }
 
@@ -53,95 +53,103 @@ class _TrelloListState extends State<TrelloList> {
       builder: (context, state) {
         return Column(
           children: [
-            Container(
-              width: 300.w,
+            Row(
+              children: [
+                Container(
+                  width: 300.w,
 
-              margin: const EdgeInsets.all(8),
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1C1C1C),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: SizedBox(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // العنوان
-                    Text(
-                      widget.title,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    verticalSpace(10.h),
-                    if (state is CardLoaded)
-                      ListView.builder(
-                        shrinkWrap: true,
-
-                        itemCount: state.cards.length,
-                        itemBuilder: (context, index) {
-                          final card = state.cards[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 8),
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade800,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                card.title,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    Row(
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1C1C1C),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: SizedBox(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.add, color: Colors.white, size: 20),
-                        Expanded(
-                          child: CustomTextField(
-                            hintText: 'Add a card..',
-                            controller: _cardController,
-                            validator: (value) {},
-                            backgroundColor: ColorsManager.trelloColor,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: ColorsManager.trelloColor,
-                                width: 1.3,
-                              ),
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: ColorsManager.trelloColor,
-                                width: 1.3,
-                              ),
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            textStyle: TextStyles.font16WhiteMedium.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
+                        // العنوان
+                        Text(
+                          widget.title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        verticalSpace(10.h),
+                        if (state is CardLoaded)
+                          ListView.builder(
+                            shrinkWrap: true,
 
-                            onSubmited: (_) {
-                              addCard();
-                              // ركّز: هنخلي الفوكس يرجع للـ TextField تاني بعد الإضافة
-                              FocusScope.of(context).requestFocus(FocusNode());
-                              Future.delayed(Duration(milliseconds: 100), () {
-                                FocusScope.of(context).requestFocus(_focusNode);
-                              });
+                            itemCount: state.cards.length,
+                            itemBuilder: (context, index) {
+                              final card = state.cards[index];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Container(
+                                  margin: const EdgeInsets.only(bottom: 8),
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade800,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Text(
+                                    card.title,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              );
                             },
                           ),
+
+                        Row(
+                          children: [
+                            Icon(Icons.add, color: Colors.white, size: 20),
+                            Expanded(
+                              child: CustomTextField(
+                                hintText: 'Add a card..',
+                                controller: _cardController,
+                                validator: (value) {},
+                                backgroundColor: ColorsManager.trelloColor,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: ColorsManager.trelloColor,
+                                    width: 1.3,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: ColorsManager.trelloColor,
+                                    width: 1.3,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                textStyle: TextStyles.font16WhiteMedium.copyWith(
+                                  fontWeight: FontWeight.w400,
+                                ),
+
+                                onSubmited: (_) {
+                                  addCard();
+                                  // ركّز: هنخلي الفوكس يرجع للـ TextField تاني بعد الإضافة
+                                  FocusScope.of(context).requestFocus(FocusNode());
+                                  Future.delayed(Duration(milliseconds: 100), () {
+                                    FocusScope.of(context).requestFocus(_focusNode);
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+
+
+
+              ],
             ),
           ],
         );
