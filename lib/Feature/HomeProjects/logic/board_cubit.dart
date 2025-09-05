@@ -1,3 +1,4 @@
+// Feature/HomeProjects/logic/board_cubit.dart
 import 'package:bloc/bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../data/board_modal.dart';
@@ -41,5 +42,8 @@ class BoardCubit extends Cubit<BoardState> {
       emit(BoardError(e.toString()));
     }
   }
+
+
+
 
 }

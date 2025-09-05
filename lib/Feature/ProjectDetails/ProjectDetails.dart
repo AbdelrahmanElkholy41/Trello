@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trello/Feature/ProjectDetails/widget/ProjectDetailsBody.dart';
 
+import '../../core/theming/styles.dart';
+import '../../core/widgets/custom_main_button.dart';
 import '../HomeProjects/data/board_modal.dart';
 import '../meanu/meanu_screen.dart';
 import 'logic/card_cubit.dart';
@@ -32,15 +34,16 @@ class _ProjectDetailsState extends State<ProjectDetails> {
     return BlocConsumer<ListCubit, ListState>(
       listener: (context, state) {
         if (state is ListError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       builder: (context, state) {
         if (state is ListLoading) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+          return Scaffold(
+
+            body: const Center(child: CircularProgressIndicator()),
           );
         } else if (state is ListLoaded) {
           final lists = state.lists;
@@ -49,7 +52,9 @@ class _ProjectDetailsState extends State<ProjectDetails> {
               title: Text(
                 widget.boardId.name,
                 style: const TextStyle(
-                    fontSize: 22, fontWeight: FontWeight.w700),
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               actions: [
                 IconButton(
@@ -62,15 +67,15 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                         pageBuilder: (_, __, ___) => const MeanuScreen(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
-                          final tween = Tween(
-                            begin: const Offset(0, 1),
-                            end: Offset.zero,
-                          ).chain(CurveTween(curve: Curves.easeInOut));
-                          return SlideTransition(
-                            position: animation.drive(tween),
-                            child: child,
-                          );
-                        },
+                              final tween = Tween(
+                                begin: const Offset(0, 1),
+                                end: Offset.zero,
+                              ).chain(CurveTween(curve: Curves.easeInOut));
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
                       ),
                     );
                   },
@@ -90,20 +95,17 @@ class _ProjectDetailsState extends State<ProjectDetails> {
                         padding: const EdgeInsets.all(8.0),
                         child: BlocProvider(
                           create: (context) => CardCubit(),
-                          child: TrelloList(
-                            title: list.title, listModel: list,),
+                          child: TrelloList(title: list.title, listModel: list),
                         ),
                       );
                     },
-                  ),
+                  )
                 ),
               ],
             ),
           );
         } else {
-          return const Scaffold(
-            body: Center(child: Text("No data available")),
-          );
+          return const Center(child: Text("No data available"));
         }
       },
     );

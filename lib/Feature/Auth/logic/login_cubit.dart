@@ -7,8 +7,10 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
-final TextEditingController emailController = TextEditingController();
-final TextEditingController passwordController = TextEditingController();
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final supabase = Supabase.instance.client;
 
   Future<void> login() async {
@@ -31,6 +33,28 @@ final TextEditingController passwordController = TextEditingController();
     }
   }
 
+  Future<void> signUp() async {
+    emit(LoginLoading());
+    try {
+      final response = await supabase.auth.signUp(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+        data: {
+          'name': nameController.text.trim(),
+        },
+      );
+      final user = response.user;
+      if (user != null) {
+        emit(LoginSuccess(user.id));
+      } else {
+        emit(LoginFailure("فشل إنشاء الحساب. حاول مرة أخرى."));
+      }
+    } on AuthException catch (e) {
+      emit(LoginFailure("خطأ في إنشاء الحساب: ${e.message}"));
+    } catch (e) {
+      emit(LoginFailure("Unexpected error: $e"));
+    }
+  }
 
   Future<void> logout() async {
     try {

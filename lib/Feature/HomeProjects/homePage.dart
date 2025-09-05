@@ -1,3 +1,4 @@
+// Feature/HomeProjects/homePage.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trello/Feature/HomeProjects/widget/HomepageBody.dart';
@@ -15,10 +16,14 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+
+
   @override
   void initState() {
     super.initState();
-    context.read<BoardCubit>().getBoards(); // ✅ استدعاء أول ما الصفحة تفتح
+    
+context.read<BoardCubit>().getBoards(); // ✅ استدعاء أول ما الصفحة تفتح
+    
   }
 
   @override

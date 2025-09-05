@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trello/Feature/ProjectDetails/data/list_modal.dart';
 import 'package:trello/core/theming/colors.dart';
 import 'package:trello/core/widgets/coutom_text_field.dart';
+import 'package:trello/core/widgets/custom_main_button.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/styles.dart';
@@ -20,6 +21,7 @@ class TrelloList extends StatefulWidget {
 
 class _TrelloListState extends State<TrelloList> {
   final TextEditingController _cardController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
 
   void addCard() {
     final title = _cardController.text.trim();
@@ -31,6 +33,7 @@ class _TrelloListState extends State<TrelloList> {
       _cardController.clear(); // فضي الفيلد بعد الإضافة
     }
   }
+
   @override
   void initState() {
     super.initState();
@@ -102,11 +105,10 @@ class _TrelloListState extends State<TrelloList> {
                         Icon(Icons.add, color: Colors.white, size: 20),
                         Expanded(
                           child: CustomTextField(
-                            onSubmited: (_) => addCard(),
                             hintText: 'Add a card..',
+                            controller: _cardController,
                             validator: (value) {},
                             backgroundColor: ColorsManager.trelloColor,
-                            controller: _cardController,
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
                                 color: ColorsManager.trelloColor,
@@ -124,6 +126,15 @@ class _TrelloListState extends State<TrelloList> {
                             textStyle: TextStyles.font16WhiteMedium.copyWith(
                               fontWeight: FontWeight.w400,
                             ),
+
+                            onSubmited: (_) {
+                              addCard();
+                              // ركّز: هنخلي الفوكس يرجع للـ TextField تاني بعد الإضافة
+                              FocusScope.of(context).requestFocus(FocusNode());
+                              Future.delayed(Duration(milliseconds: 100), () {
+                                FocusScope.of(context).requestFocus(_focusNode);
+                              });
+                            },
                           ),
                         ),
                       ],
