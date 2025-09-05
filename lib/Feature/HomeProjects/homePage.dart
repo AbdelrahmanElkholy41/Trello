@@ -16,14 +16,11 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-
-
   @override
   void initState() {
     super.initState();
-    
-context.read<BoardCubit>().getBoards(); // ✅ استدعاء أول ما الصفحة تفتح
-    
+
+    context.read<BoardCubit>().getBoards(); // ✅ استدعاء أول ما الصفحة تفتح
   }
 
   @override
@@ -31,7 +28,6 @@ context.read<BoardCubit>().getBoards(); // ✅ استدعاء أول ما الص
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-
           final result = await context.pushNamed(Routes.addBoarderScreen);
 
           /// ✅ لو رجعت قيمة true يبقى فيه إضافة جديدة → نعمل refresh
