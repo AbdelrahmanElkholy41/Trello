@@ -51,104 +51,108 @@ class _TrelloListState extends State<TrelloList> {
         }
       },
       builder: (context, state) {
-        return Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 300.w,
-
-                  margin: const EdgeInsets.all(8),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1C1C1C),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // العنوان
-                        Text(
-                          widget.title,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 300.w,
+                    margin: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1C1C1C),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: SizedBox(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.title,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        verticalSpace(10.h),
-                        if (state is CardLoaded)
-                          ListView.builder(
-                            shrinkWrap: true,
+                          verticalSpace(15.h),
+                          if (state is CardLoaded)
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
 
-                            itemCount: state.cards.length,
-                            itemBuilder: (context, index) {
-                              final card = state.cards[index];
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Container(
-                                  margin: const EdgeInsets.only(bottom: 8),
-                                  padding: const EdgeInsets.all(12),
+                              itemCount: state.cards.length,
+                              itemBuilder: (context, index) {
+                                final card = state.cards[index];
+                                return Container(
+                                   margin: const EdgeInsets.only(bottom: 20),
+                                   padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade800,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Text(
                                     card.title,
-                                    style: const TextStyle(color: Colors.white),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-
-                        Row(
-                          children: [
-                            Icon(Icons.add, color: Colors.white, size: 20),
-                            Expanded(
-                              child: CustomTextField(
-                                hintText: 'Add a card..',
-                                controller: _cardController,
-                                validator: (value) {},
-                                backgroundColor: ColorsManager.trelloColor,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: ColorsManager.trelloColor,
-                                    width: 1.3,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: ColorsManager.trelloColor,
-                                    width: 1.3,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                textStyle: TextStyles.font16WhiteMedium.copyWith(
-                                  fontWeight: FontWeight.w400,
-                                ),
-
-                                onSubmited: (_) {
-                                  addCard();
-                                  FocusScope.of(context).requestFocus(FocusNode());
-                                  Future.delayed(Duration(milliseconds: 100), () {
-                                    FocusScope.of(context).requestFocus(_focusNode);
-                                  });
-                                },
-                              ),
+                                );
+                              },
                             ),
-                          ],
-                        ),
-                      ],
+                          Row(
+                            children: [
+                              Icon(Icons.add, color: Colors.white, size: 20),
+                              Expanded(
+                                child: CustomTextField(
+                                  hintText: 'Add a card..',
+                                  controller: _cardController,
+                                  validator: (value) {},
+                                  backgroundColor: ColorsManager.trelloColor,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: ColorsManager.trelloColor,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: ColorsManager.trelloColor,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  textStyle: TextStyles.font16WhiteMedium
+                                      .copyWith(fontWeight: FontWeight.w400),
+
+                                  onSubmited: (_) {
+                                    addCard();
+                                    FocusScope.of(
+                                      context,
+                                    ).requestFocus(FocusNode());
+                                    Future.delayed(
+                                      Duration(milliseconds: 100),
+                                      () {
+                                        FocusScope.of(
+                                          context,
+                                        ).requestFocus(_focusNode);
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         );
       },
     );
