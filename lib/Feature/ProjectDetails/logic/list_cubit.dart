@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import '../data/list_modal.dart';
 import 'list_state.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -30,21 +31,23 @@ class ListCubit extends Cubit<ListState> {
   }
 
 
-  Future<int?> addList(int boardId, String title) async {
+  Future<int?> addList({required int boardId, required String name}) async {
     try {
       final response = await supabase.from('lists').insert({
         'board_id': boardId,
-        'title': title,
-      }).select(); // ✅ نرجع البيانات اللي اتضافت
+        'name': name,
+        'position': 8
+      }).select();
 
-      if (response != null && response.isNotEmpty) {
-        final listId = response.first['id'] as int; // ✅ ناخد ID الليست
-        getLists(boardId); // نجيب الليستات بعد الإضافة
+      if (response.isNotEmpty) {
+        final listId = response.first['id'] as int;
+        getLists(boardId); // refresh بعد الإضافة
         return listId;
       }
     } catch (e) {
       emit(ListError(e.toString()));
     }
-    return null; // لو حصل Error
+    return null;
   }
+
 }

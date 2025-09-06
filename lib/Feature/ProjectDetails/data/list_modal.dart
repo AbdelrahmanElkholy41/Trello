@@ -1,21 +1,24 @@
 class ListModel {
   final int id;
   final int boardId;
-  final String title;
+  final String name;
   final DateTime createdAt;
+  final int position;
 
-  ListModel({
+
+  ListModel( {
     required this.id,
     required this.boardId,
-    required this.title,
-    required this.createdAt,
+    required this.name,
+    required this.createdAt, required  this.position,
   });
 
   factory ListModel.fromJson(Map<String, dynamic> json) {
     return ListModel(
       id: json['id'] as int,
+      position: json['position'] as int,
       boardId: json['board_id'] as int,
-      title: (json['name'] ?? '') as String, // حماية من null
+      name: (json['name'] ?? '') as String, // حماية من null
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : DateTime.now(), // default لو null
@@ -26,13 +29,14 @@ class ListModel {
     return {
       'id': id,
       'board_id': boardId,
-      'name': title,
+      'name': name,
       'created_at': createdAt.toIso8601String(),
+      'position': position,
     };
   }
 
   @override
   String toString() {
-    return 'ListModel(id: $id, boardId: $boardId, title: $title, createdAt: $createdAt)';
+    return 'ListModel(id: $id, boardId: $boardId, title: $name, createdAt: $createdAt, position: $position)';
   }
 }

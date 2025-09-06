@@ -132,7 +132,6 @@ class _TrelloListState extends State<TrelloList> {
 
                                 onSubmited: (_) {
                                   addCard();
-                                  // ركّز: هنخلي الفوكس يرجع للـ TextField تاني بعد الإضافة
                                   FocusScope.of(context).requestFocus(FocusNode());
                                   Future.delayed(Duration(milliseconds: 100), () {
                                     FocusScope.of(context).requestFocus(_focusNode);
@@ -146,8 +145,6 @@ class _TrelloListState extends State<TrelloList> {
                     ),
                   ),
                 ),
-
-
 
               ],
             ),
