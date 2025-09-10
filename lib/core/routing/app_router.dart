@@ -54,9 +54,9 @@ class AppRouter {
       case Routes.splashScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-  create: (context) => LoginCubit(),
-  child: const SplashScreen(),
-),
+            create: (context) => LoginCubit(),
+            child: const SplashScreen(),
+          ),
         );
       case Routes.projectDetailsScreen:
         return MaterialPageRoute(
