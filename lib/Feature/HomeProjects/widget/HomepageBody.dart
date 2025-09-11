@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trello/Feature/HomeProjects/data/board_modal.dart';
 import 'package:supabase_flutter/supabase_flutter.dart'; // ✅ لازم ده
 
 import '../../ProjectDetails/ProjectDetails.dart';
+import '../data/board_modal.dart';
 import '../logic/board_cubit.dart';
 import '../logic/board_state.dart';
 import 'card_board.dart';

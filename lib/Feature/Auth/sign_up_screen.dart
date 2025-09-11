@@ -1,14 +1,14 @@
+import 'package:PlanMate/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trello/core/helpers/extensions.dart';
-import 'package:trello/core/helpers/spacing.dart';
-import 'package:trello/core/theming/colors.dart';
-import 'package:trello/core/widgets/coutom_text_field.dart';
-import 'package:trello/core/widgets/custom_main_button.dart';
 
+import '../../core/helpers/spacing.dart';
 import '../../core/routing/routes.dart';
+import '../../core/theming/colors.dart';
 import '../../core/theming/styles.dart';
+import '../../core/widgets/coutom_text_field.dart';
+import '../../core/widgets/custom_main_button.dart';
 import 'logic/login_cubit.dart';
 
 class SignUpScreen extends StatelessWidget {

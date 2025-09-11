@@ -45,3 +45,54 @@ class UserAvatar extends StatelessWidget {
     );
   }
 }
+
+
+class BoardMemberWithStar extends StatelessWidget {
+  final String userName;
+  final bool isOwner;
+  final double radius;
+
+  const BoardMemberWithStar({
+    Key? key,
+    required this.userName,
+    this.isOwner = false,
+    this.radius = 32,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        UserAvatar(
+          userName: userName,
+          radius: radius,
+        ),
+        if (isOwner)
+          Positioned(
+            top: -4,
+            right: -4,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.yellow,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 2,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
+              padding: EdgeInsets.all(radius * 0.15),
+              child: Icon(
+                Icons.star,
+                size: radius * 0.4,
+                color: Colors.white,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}

@@ -1,9 +1,7 @@
 // core/routing/app_router.dart
+import 'package:PlanMate/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trello/Feature/add_boarder/add_boarder_screen.dart';
-import 'package:trello/Feature/meanu/meanu_screen.dart';
-import 'package:trello/core/routing/routes.dart';
 import '../../Feature/Auth/logic/login_cubit.dart';
 import '../../Feature/Auth/login_screen.dart';
 import '../../Feature/Auth/sign_up_screen.dart';
@@ -13,8 +11,10 @@ import '../../Feature/HomeProjects/homePage.dart';
 import '../../Feature/HomeProjects/logic/board_cubit.dart';
 import '../../Feature/ProjectDetails/ProjectDetails.dart';
 import '../../Feature/ProjectDetails/logic/list_cubit.dart';
+import '../../Feature/add_boarder/add_boarder_screen.dart';
 import '../../Feature/add_boarder/logic/add_poard_cubit.dart';
 import '../../Feature/meanu/logic/menu_cubit/menu_cubit.dart';
+import '../../Feature/meanu/meanu_screen.dart';
 
 class AppRouter {
   Route generateRoute(RouteSettings settings) {

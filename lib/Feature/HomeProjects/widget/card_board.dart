@@ -1,5 +1,5 @@
+import 'package:PlanMate/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:trello/core/helpers/extensions.dart';
 
 import '../../../core/routing/routes.dart';
 import '../../ProjectDetails/ProjectDetails.dart';

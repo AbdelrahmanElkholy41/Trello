@@ -1,10 +1,10 @@
+import 'package:PlanMate/Feature/ProjectDetails/widget/ProjectDetailsBody.dart';
+import 'package:PlanMate/Feature/ProjectDetails/widget/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trello/Feature/ProjectDetails/widget/ProjectDetailsBody.dart';
-import 'package:trello/Feature/ProjectDetails/widget/custom_app_bar.dart';
-import 'package:trello/core/theming/colors.dart';
-import 'package:trello/core/widgets/coutom_text_field.dart';
+import '../../core/theming/colors.dart';
 import '../../core/theming/styles.dart';
+import '../../core/widgets/coutom_text_field.dart';
 import '../../core/widgets/custom_main_button.dart';
 import '../HomeProjects/data/board_modal.dart';
 import '../meanu/meanu_screen.dart';

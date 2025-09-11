@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../HomeProjects/data/board_modal.dart';
+import '../../meanu/logic/menu_cubit/menu_cubit.dart';
 import '../../meanu/meanu_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -32,7 +34,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   context,
                   PageRouteBuilder(
                     transitionDuration: const Duration(milliseconds: 400),
-                    pageBuilder: (_, __, ___) => MeanuScreen(boardId: boardId,),
+                    pageBuilder: (_, __, ___) =>
+                        BlocProvider(
+                          create: (context) => BoardMembersCubit(),
+                          child: MeanuScreen(boardId: boardId,),
+                        ),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       final tween = Tween(
