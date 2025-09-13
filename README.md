@@ -37,6 +37,8 @@ A Flutter application inspired by **Trello**, built for practicing project manag
 ---
 
 ## 📂 Project Structure
+<img width="435" height="468" alt="image" src="https://github.com/user-attachments/assets/a2da89d2-4ead-4e0c-9fd4-c64501216186" />
+
 
 ## backend using supabase (SaaS)
 
