@@ -11,9 +11,15 @@ import '../../core/widgets/coutom_text_field.dart';
 import '../../core/widgets/custom_main_button.dart';
 import 'logic/login_cubit.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+   bool _isPasswordObscure=true;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
@@ -59,6 +65,19 @@ class LoginScreen extends StatelessWidget {
                       hintText: 'Password',
                       validator: (value) {},
                       backgroundColor: ColorsManager.trelloColor,
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isPasswordObscure = !_isPasswordObscure;
+                          });
+                        },
+                        child: Icon(
+                          _isPasswordObscure
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility,
+                          color: ColorsManager.mainBlue,
+                        ),
+                      ),
                     ),
                     verticalSpace(80.h),
                     AppTextButton(

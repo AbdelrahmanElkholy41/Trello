@@ -1,6 +1,9 @@
 import 'package:PlanMate/core/helpers/spacing.dart';
+import 'package:PlanMate/core/theming/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../core/theming/styles.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,7 +16,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initials = getInitials('sddsdd sd'); // هنا نحسب الـ initials قبل الـ widget
+    final initials = getInitials(
+      'sddsdd sd',
+    );
 
     return Scaffold(
       body: Center(
@@ -31,7 +36,27 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20)
+          Spacer(),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: ColorsManager.trelloColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(child: Text('Log out',style: TextStyles.font16WhiteMedium,)),
+            ),
+            verticalSpace(15.h),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: ColorsManager.trelloColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(child: Text('Delete account',style: TextStyles.font16WhiteMedium,)),
+            ),
+            verticalSpace(15.h)
           ],
         ),
       ),

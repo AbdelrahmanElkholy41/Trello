@@ -64,17 +64,21 @@ class _HomepageState extends State<Homepage> {
           ),
         ],
       ),
-    floatingActionButton: _currentIndex==0 ?FloatingActionButton(
-        onPressed: () async {
-          final result = await context.pushNamed(Routes.addBoarderScreen);
-          if (result == true) {
-            context.read<BoardCubit>().getBoards();
-          }
-        },
-        backgroundColor: Colors.blue,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        child: const Icon(Icons.add, color: Colors.white),
-      ):null,
+      floatingActionButton: _currentIndex == 0
+          ? FloatingActionButton(
+              onPressed: () async {
+                final result = await context.pushNamed(Routes.addBoarderScreen);
+                if (result == true) {
+                  context.read<BoardCubit>().getBoards();
+                }
+              },
+              backgroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: const Icon(Icons.add, color: Colors.white),
+            )
+          : null,
       appBar: _currentIndex == 0
           ? AppBar(
               automaticallyImplyLeading: false,
@@ -84,7 +88,7 @@ class _HomepageState extends State<Homepage> {
               ),
             )
           : AppBar(
-        automaticallyImplyLeading: false,
+              automaticallyImplyLeading: false,
               title: const Text(
                 'Profile',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
