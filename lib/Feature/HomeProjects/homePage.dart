@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/routing/routes.dart';
+import '../profile/profile_screen.dart';
 import 'logic/board_cubit.dart';
 import 'logic/board_state.dart';
 
@@ -19,11 +20,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    // هنا تحط الشاشات اللي هيتنقل بينها
-    HomepageBody(boards: []), // الشاشة الرئيسية
-    Center(child: Text("Profile Page")), // مثال
-  ];
+  final List<Widget> _pages = [HomepageBody(boards: []), ProfileScreen()];
 
   @override
   void initState() {
@@ -41,7 +38,7 @@ class _HomepageState extends State<Homepage> {
           } else if (state is BoardSuccess) {
             return _currentIndex == 0
                 ? HomepageBody(boards: state.boards)
-                : Center(child: Text("Profile Page"));
+                : ProfileScreen();
           } else if (state is BoardError) {
             return Center(child: Text("Error: ${state.message}"));
           }
@@ -67,7 +64,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+    floatingActionButton: _currentIndex==0 ?FloatingActionButton(
         onPressed: () async {
           final result = await context.pushNamed(Routes.addBoarderScreen);
           if (result == true) {
@@ -77,14 +74,22 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.blue,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         child: const Icon(Icons.add, color: Colors.white),
-      ),
-      appBar: AppBar(
+      ):null,
+      appBar: _currentIndex == 0
+          ? AppBar(
+              automaticallyImplyLeading: false,
+              title: const Text(
+                'Home',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+              ),
+            )
+          : AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          'Home',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-        ),
-      ),
+              title: const Text(
+                'Profile',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+              ),
+            ),
     );
   }
 }
