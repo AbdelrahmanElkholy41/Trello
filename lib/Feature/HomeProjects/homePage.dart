@@ -1,6 +1,7 @@
 // Feature/HomeProjects/homePage.dart
 import 'package:PlanMate/Feature/HomeProjects/widget/HomepageBody.dart';
 import 'package:PlanMate/core/helpers/extensions.dart';
+import 'package:PlanMate/core/theming/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,21 +17,59 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    // هنا تحط الشاشات اللي هيتنقل بينها
+    HomepageBody(boards: []), // الشاشة الرئيسية
+    Center(child: Text("Profile Page")), // مثال
+  ];
+
   @override
   void initState() {
     super.initState();
-
-    context.read<BoardCubit>().getBoards(); // ✅ استدعاء أول ما الصفحة تفتح
+    context.read<BoardCubit>().getBoards();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: BlocBuilder<BoardCubit, BoardState>(
+        builder: (context, state) {
+          if (state is BoardLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is BoardSuccess) {
+            return _currentIndex == 0
+                ? HomepageBody(boards: state.boards)
+                : Center(child: Text("Profile Page"));
+          } else if (state is BoardError) {
+            return Center(child: Text("Error: ${state.message}"));
+          }
+          return const Center(child: Text("No Boards Yet"));
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: ColorsManager.trelloColor ,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home,size: 30,),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person,size: 30,),
+            label: "Profile",
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final result = await context.pushNamed(Routes.addBoarderScreen);
-
-          /// ✅ لو رجعت قيمة true يبقى فيه إضافة جديدة → نعمل refresh
           if (result == true) {
             context.read<BoardCubit>().getBoards();
           }
@@ -46,18 +85,7 @@ class _HomepageState extends State<Homepage> {
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
         ),
       ),
-      body: BlocBuilder<BoardCubit, BoardState>(
-        builder: (context, state) {
-          if (state is BoardLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is BoardSuccess) {
-            return HomepageBody(boards: state.boards);
-          } else if (state is BoardError) {
-            return Center(child: Text("Error: ${state.message}"));
-          }
-          return const Center(child: Text("No Boards Yet"));
-        },
-      ),
     );
   }
 }
+
