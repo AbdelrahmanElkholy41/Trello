@@ -85,17 +85,38 @@ class _TrelloListState extends State<TrelloList> {
                               itemBuilder: (context, index) {
                                 final card = state.cards[index];
                                 return Container(
-                                   margin: const EdgeInsets.only(bottom: 20),
-                                   padding: const EdgeInsets.all(12),
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  padding: const EdgeInsets.all(12),
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade800,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: Text(
-                                    card.title,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      Transform.scale(
+                                        scale: 1.3,
+                                        child: SizedBox(
+                                          width: 18,
+                                          height: 18,
+                                          child: Checkbox(
+                                            shape: CircleBorder(),
+                                            value: state.cards.isEmpty,
+                                            onChanged: (value) {},
+                                            activeColor:
+                                            Colors.white, // لون الـ fill
+                                            checkColor: Colors.blue,
+                                          ),
+                                        ),
+                                      ),
+                                      horizontalSpace(10.w),
+                                      Text(
+                                        card.title,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
@@ -133,7 +154,7 @@ class _TrelloListState extends State<TrelloList> {
                                     ).requestFocus(FocusNode());
                                     Future.delayed(
                                       Duration(milliseconds: 100),
-                                      () {
+                                          () {
                                         FocusScope.of(
                                           context,
                                         ).requestFocus(_focusNode);
