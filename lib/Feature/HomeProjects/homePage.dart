@@ -49,7 +49,7 @@ class _HomepageState extends State<Homepage> {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: ColorsManager.trelloColor ,
+        backgroundColor: ColorsManager.trelloColor,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -58,11 +58,11 @@ class _HomepageState extends State<Homepage> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home,size: 30,),
+            icon: Icon(Icons.home, size: 30),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person,size: 30,),
+            icon: Icon(Icons.person, size: 30),
             label: "Profile",
           ),
         ],
@@ -88,4 +88,3 @@ class _HomepageState extends State<Homepage> {
     );
   }
 }
-
