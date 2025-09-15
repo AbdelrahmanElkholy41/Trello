@@ -55,7 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       textStyle: TextStyles.font18WhiteMedium,
                       controller: context.read<LoginCubit>().emailController,
                       hintText: 'Email',
-                      validator: (value) {},
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        return null;
+                      },
                       backgroundColor: ColorsManager.trelloColor,
                     ),
                     verticalSpace(40.h),
@@ -63,8 +68,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       textStyle: TextStyles.font16WhiteMedium,
                       controller: context.read<LoginCubit>().passwordController,
                       hintText: 'Password',
-                      validator: (value) {},
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
                       backgroundColor: ColorsManager.trelloColor,
+                      isObscureText: _isPasswordObscure,
+
                       suffixIcon: GestureDetector(
                         onTap: () {
                           setState(() {

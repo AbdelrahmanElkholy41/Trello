@@ -34,6 +34,8 @@ class LoginCubit extends Cubit<LoginState> {
         }
 
         emit(LoginSuccess(user.id));
+        emailController.clear();
+        passwordController.clear();
       } else {
         emit(LoginFailure("فشل تسجيل الدخول. تأكد من البيانات."));
       }
@@ -78,9 +80,12 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> logout() async {
     try {
       await supabase.auth.signOut();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('token');
+
       emit(LoginInitial());
     } catch (e) {
-      emit(LoginFailure("فشل تسجيل الخروج: $e"));
+      emit(LoginFailure("$e"));
     }
   }
 }

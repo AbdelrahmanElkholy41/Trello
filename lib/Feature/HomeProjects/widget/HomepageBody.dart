@@ -11,7 +11,7 @@ import 'card_board.dart';
 class HomepageBody extends StatelessWidget {
    HomepageBody({super.key, required this.boards});
   final List<Board> boards;
-   final String  name = Supabase.instance.client.auth.currentUser!.userMetadata?['name'] ?? " "; // ✅ default value
+   final String  name = Supabase.instance.client.auth.currentUser?.userMetadata?['name'] ?? "un"; // ✅ default value
 
 
    @override
