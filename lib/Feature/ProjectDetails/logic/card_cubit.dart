@@ -17,7 +17,6 @@ class CardCubit extends Cubit<CardState> {
           .select()
           .eq('list_id', listId);
 
-
       final cards = (response as List)
           .map((e) => CardModel.fromJson(e as Map<String, dynamic>))
           .toList();
@@ -37,18 +36,42 @@ class CardCubit extends Cubit<CardState> {
       await supabase.from('cards').insert({
         'list_id': listId,
         'title': title,
+        'is_done': false, // 👈 نخليها false بالافتراضي
       });
 
-
-      /// refresh cards
-      print('refresh cards');
       getCards(listId);
     } catch (e) {
       emit(CardError(e.toString()));
     }
   }
 
-  /// update card
+  /// update card (مثلاً نحدث حالة الـ checkbox)
+  Future<void> updateCardStatus({
+    required int cardId,
+    required int listId,
+    required String status,
+  }) async {
+    try {
+      await supabase.from('cards').update({
+        'status': status,
+      }).eq('id', cardId);
+
+      // ✅ عدّل الكارد في الليست الحالية locally
+      final currentState = state;
+      if (currentState is CardLoaded) {
+        final updatedCards = currentState.cards.map((card) {
+          if (card.id == cardId) {
+            return card.copyWith(status: status); // محتاج تضيف copyWith
+          }
+          return card;
+        }).toList();
+
+        emit(CardLoaded(updatedCards));
+      }
+    } catch (e) {
+      emit(CardError(e.toString()));
+    }
+  }
 
 
   /// delete card

@@ -94,19 +94,27 @@ class _TrelloListState extends State<TrelloList> {
                                   child: Row(
                                     children: [
                                       Transform.scale(
-                                        scale: 1.3,
+                                        scale: 1.2,
                                         child: SizedBox(
                                           width: 18,
                                           height: 18,
                                           child: Checkbox(
-                                            shape: CircleBorder(),
-                                            value: state.cards.isEmpty,
-                                            onChanged: (value) {},
-                                            activeColor:
-                                            Colors.white,
-                                            checkColor: Colors.blue,
+                                            shape: const CircleBorder(),
+                                            value: card.status == 'done',
+                                            onChanged: (value) {
+                                              final newStatus = value == true ? 'done' : 'to do';
+                                              context.read<CardCubit>().updateCardStatus(
+                                                cardId: card.id,
+                                                listId: widget.listModel.id,
+                                                status: newStatus,
+                                              );
+                                            },
+                                            activeColor: ColorsManager.mainBlue,
+                                            checkColor: ColorsManager.trelloColor,
                                           ),
                                         ),
+
+
                                       ),
                                       horizontalSpace(10.w),
                                       Text(
@@ -128,7 +136,12 @@ class _TrelloListState extends State<TrelloList> {
                                 child: CustomTextField(
                                   hintText: 'Add a card..',
                                   controller: _cardController,
-                                  validator: (value) {},
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter a card title';
+                                    }
+                                    return null;
+                                  },
                                   backgroundColor: ColorsManager.trelloColor,
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
@@ -154,7 +167,7 @@ class _TrelloListState extends State<TrelloList> {
                                     ).requestFocus(FocusNode());
                                     Future.delayed(
                                       Duration(milliseconds: 100),
-                                          () {
+                                      () {
                                         FocusScope.of(
                                           context,
                                         ).requestFocus(_focusNode);
