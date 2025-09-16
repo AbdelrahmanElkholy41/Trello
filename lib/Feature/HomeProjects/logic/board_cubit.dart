@@ -15,17 +15,17 @@ class BoardCubit extends Cubit<BoardState> {
       final currentUser = supabase.auth.currentUser;
 
       if (currentUser == null) {
-        emit(BoardError("مفيش مستخدم مسجل دخول"));
+        emit(BoardError("do not any user"));
         return;
       }
 
       final email = currentUser.email;
       if (email == null) {
-        emit(BoardError("الإيميل مش موجود"));
+        emit(BoardError("email do not exist"));
         return;
       }
 
-      // 1- البوردات اللي المستخدم عملها
+
       final response = await supabase
           .from('boards')
           .select()
@@ -35,7 +35,7 @@ class BoardCubit extends Cubit<BoardState> {
           .map((b) => Board.fromJson(b as Map<String, dynamic>))
           .toList();
 
-      // 2- البوردات اللي المستخدم مدعو عليها (accepted = true)
+
       final invitations = await supabase
           .from('invitations')
           .select('board_id')

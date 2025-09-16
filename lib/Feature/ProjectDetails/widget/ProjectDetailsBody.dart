@@ -103,7 +103,7 @@ class _TrelloListState extends State<TrelloList> {
                                             value: state.cards.isEmpty,
                                             onChanged: (value) {},
                                             activeColor:
-                                            Colors.white, // لون الـ fill
+                                            Colors.white,
                                             checkColor: Colors.blue,
                                           ),
                                         ),

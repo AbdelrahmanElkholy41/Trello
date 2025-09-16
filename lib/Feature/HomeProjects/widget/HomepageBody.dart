@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart'; // ✅ لازم ده
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../ProjectDetails/ProjectDetails.dart';
 import '../data/board_modal.dart';

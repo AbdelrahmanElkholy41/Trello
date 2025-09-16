@@ -23,7 +23,7 @@ class AddBoarderScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.message)),
               );
-              Navigator.pop(context, true); // ✅ هرجع بـ true
+              Navigator.pop(context, true);
             } else if (state is AddPoardFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),

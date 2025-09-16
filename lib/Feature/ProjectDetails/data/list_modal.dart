@@ -18,10 +18,10 @@ class ListModel {
       id: json['id'] as int,
       position: json['position'] as int,
       boardId: json['board_id'] as int,
-      name: (json['name'] ?? '') as String, // حماية من null
+      name: (json['name'] ?? '') as String,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
-          : DateTime.now(), // default لو null
+          : DateTime.now(),
     );
   }
 

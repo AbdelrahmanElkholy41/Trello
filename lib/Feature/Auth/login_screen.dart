@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextSpan(
                               text: ' Sign Up',
                               style: TextStyles.font18WhiteMedium.copyWith(
-                                color: Colors.blue, // خليها بلون مميز
+                                color: Colors.blue,
                                 decoration: TextDecoration
                                     .underline,
                               ),

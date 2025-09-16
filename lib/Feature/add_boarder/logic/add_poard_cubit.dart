@@ -9,7 +9,6 @@ class AddPoardCubit extends Cubit<AddPoardState> {
 
   final supabase = Supabase.instance.client;
 
-  /// هنا ضيفنا الكنترولر
   final TextEditingController titleController = TextEditingController();
 
   Future<void> addBoard() async {
@@ -51,7 +50,7 @@ class AddPoardCubit extends Cubit<AddPoardState> {
 
   @override
   Future<void> close() {
-    titleController.dispose(); // مهم عشان ما يحصلش memory leak
+    titleController.dispose();
     return super.close();
   }
 }

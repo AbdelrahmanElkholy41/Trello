@@ -42,7 +42,6 @@ class TabControllerr extends StatelessWidget {
     );
   }
 
-  /// 🔹 Widget لبناء قائمة من الكروت
   Widget _buildTaskList(String taskTitle, String user, Color color) {
     return ListView.builder(
       itemCount: 5,
@@ -50,7 +49,6 @@ class TabControllerr extends StatelessWidget {
     );
   }
 
-  /// 🔹 Widget للكارت الواحد
   Widget _buildTaskCard(String title, String user, Color tagColor) {
     final statusMap = {
       Colors.orange: "TO DO",

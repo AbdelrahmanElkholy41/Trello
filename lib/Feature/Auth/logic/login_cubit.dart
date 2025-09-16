@@ -25,7 +25,6 @@ class LoginCubit extends Cubit<LoginState> {
       final user = response.user;
 
       if (user != null) {
-        // ✅ احفظ التوكن
         final prefs = await SharedPreferences.getInstance();
         final session = response.session;
         if (session != null) {
@@ -37,10 +36,10 @@ class LoginCubit extends Cubit<LoginState> {
         emailController.clear();
         passwordController.clear();
       } else {
-        emit(LoginFailure("فشل تسجيل الدخول. تأكد من البيانات."));
+        emit(LoginFailure('do not have user'));
       }
     } on AuthException catch (e) {
-      emit(LoginFailure("خطأ في تسجيل الدخول: ${e.message}"));
+      emit(LoginFailure("failed to login: ${e.message}"));
     } catch (e) {
       emit(LoginFailure("Unexpected error: $e"));
     }
@@ -51,7 +50,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     try {
       if (passwordController.text.trim() != confirmpasswordController.text.trim()) {
-        emit(LoginFailure("كلمة المرور غير متطابقة"));
+        emit(LoginFailure("passwords don't match"));
         return;
       }
 
@@ -67,10 +66,10 @@ class LoginCubit extends Cubit<LoginState> {
       if (user != null) {
         emit(LoginSuccess(user.id));
       } else {
-        emit(LoginFailure("فشل إنشاء الحساب. حاول مرة أخرى."));
+        emit(LoginFailure("failed to create user"));
       }
     } on AuthException catch (e) {
-      emit(LoginFailure("خطأ في إنشاء الحساب: ${e.message}"));
+      emit(LoginFailure("failed to sign up: ${e.message}"));
     } catch (e) {
       emit(LoginFailure("Unexpected error: $e"));
     }
@@ -85,7 +84,7 @@ class LoginCubit extends Cubit<LoginState> {
 
       emit(LoginInitial());
     } catch (e) {
-      emit(LoginFailure("$e"));
+      emit(LoginFailure("failed to logout: $e"));
     }
   }
 }

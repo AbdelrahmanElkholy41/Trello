@@ -11,7 +11,6 @@ class CardModel {
     required this.listId,
   });
 
-  /// fromJson (لما تجيب الداتا من Supabase/Postgres)
   factory CardModel.fromJson(Map<String, dynamic> json) {
     return CardModel(
       id: json['id'] as int,
@@ -21,7 +20,6 @@ class CardModel {
     );
   }
 
-  /// toJson (لما تبعت داتا لـ Supabase/Postgres)
   Map<String, dynamic> toJson() {
     return {
       'id': id,
