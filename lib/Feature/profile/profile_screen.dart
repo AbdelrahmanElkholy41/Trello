@@ -58,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                     Spacer(),
                     GestureDetector(
                       onTap: (){
-                        //context.read<LoginCubit>().logout();
+                        context.read<LoginCubit>().logout();
                       },
                       child: Container(
 
@@ -75,23 +75,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     verticalSpace(15.h),
-                    GestureDetector(
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: ColorsManager.trelloColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Delete account',
-                            style: TextStyles.font16WhiteMedium,
-                          ),
-                        ),
-                      ),
-                    ),
-                    verticalSpace(15.h),
+
                   ],
                 ),
               ),

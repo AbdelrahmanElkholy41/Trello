@@ -49,7 +49,8 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> signUp() async {
     emit(LoginLoading());
     try {
-      if (passwordController.text.trim() != confirmpasswordController.text.trim()) {
+      if (passwordController.text.trim() !=
+          confirmpasswordController.text.trim()) {
         emit(LoginFailure("passwords don't match"));
         return;
       }
@@ -86,5 +87,23 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (e) {
       emit(LoginFailure("failed to logout: $e"));
     }
+  }
+  Future<void>deleteAccount() async {
+    try {
+      final user = supabase.auth.currentUser;
+      if (user != null) {
+        await supabase.auth.admin.deleteUser(user.id);
+        logout();
+        emit(LoginInitial());
+      }
+    }catch(e){
+      emit(LoginFailure("failed to delete account: $e"));
+    }
+  }
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmpasswordController.dispose();
+    nameController.dispose();
   }
 }
