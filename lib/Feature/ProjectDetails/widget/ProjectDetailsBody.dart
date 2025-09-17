@@ -102,19 +102,22 @@ class _TrelloListState extends State<TrelloList> {
                                             shape: const CircleBorder(),
                                             value: card.status == 'done',
                                             onChanged: (value) {
-                                              final newStatus = value == true ? 'done' : 'to do';
-                                              context.read<CardCubit>().updateCardStatus(
-                                                cardId: card.id,
-                                                listId: widget.listModel.id,
-                                                status: newStatus,
-                                              );
+                                              final newStatus = value == true
+                                                  ? 'done'
+                                                  : 'to do';
+                                              context
+                                                  .read<CardCubit>()
+                                                  .updateCardStatus(
+                                                    cardId: card.id,
+                                                    listId: widget.listModel.id,
+                                                    status: newStatus,
+                                                  );
                                             },
                                             activeColor: ColorsManager.mainBlue,
-                                            checkColor: ColorsManager.trelloColor,
+                                            checkColor:
+                                                ColorsManager.trelloColor,
                                           ),
                                         ),
-
-
                                       ),
                                       horizontalSpace(10.w),
                                       Text(

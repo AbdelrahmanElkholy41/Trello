@@ -1,6 +1,7 @@
 import 'package:PlanMate/core/helpers/extensions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/helpers/spacing.dart';
@@ -25,7 +26,11 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          context.pushNamed(Routes.homeScreen);
+          Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.homeScreen,
+                  (route) => false,
+          );
         } else if (state is LoginFailure) {
           ScaffoldMessenger.of(
             context,
@@ -39,7 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (context, state) {
         return WillPopScope(
           onWillPop: ()async{
-            return true;
+            SystemNavigator.pop();
+            return false;
           },
           child: Scaffold(
             appBar: AppBar(automaticallyImplyLeading: false),

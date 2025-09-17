@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String  name = Supabase.instance.client.auth.currentUser?.userMetadata?['name'] ?? "un"; // ✅ default value
+    final String  name = Supabase.instance.client.auth.currentUser?.userMetadata?['name'] ?? "un";
     final initials = getInitials(name);
     return BlocProvider(
       create: (context) => LoginCubit(),
@@ -33,7 +33,12 @@ class ProfileScreen extends StatelessWidget {
             );
           }
           if (state is LoginInitial) {
-            context.pushNamed(Routes.loginScreen);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              Routes.loginScreen,
+                  (route) => false,
+            );
+
           }
         },
         builder: (context, state) {
